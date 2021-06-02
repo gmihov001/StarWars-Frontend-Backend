@@ -43,8 +43,6 @@ class Layout extends React.Component {
 
 							<Route path="/details/:id" component={Details} />
 
-							<Route path="/planet_details" component={PlanetDetails} />
-
 							<Route exact path="/single/:theid">
 								<Single />
 							</Route>

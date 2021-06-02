@@ -14,9 +14,7 @@ export class Home extends React.Component {
 		};
 	}
 
-	componentDidMount = () => {
-		
-	};
+	componentDidMount = () => {};
 
 	render() {
 		return (
@@ -37,7 +35,6 @@ export class Home extends React.Component {
 														index={index}
 													/>
 												);
-												
 										  })
 										: null}
 								</div>
@@ -56,7 +53,6 @@ export class Home extends React.Component {
 														index={index}
 													/>
 												);
-												
 										  })
 										: null}
 								</div>
