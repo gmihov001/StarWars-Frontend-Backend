@@ -14,10 +14,10 @@ export class Details extends React.Component {
 
 	componentDidMount = () => {
 		//const { handle } = this.props.match.params;
-		const { data } = this.props.location.state;
+		const data = this.props.location.state;
 		this.setState({ results: data });
-		console.log(this.state.data);
-		console.log(this.state.results);
+		console.log("data", this.state.data);
+		console.log("results", this.state.results);
 
 		// fetch("https://swapi.co/api/people/" + this.props.match.params.id + "?format=json")
 		// 	.then(res => res.json())
@@ -36,24 +36,19 @@ export class Details extends React.Component {
 
 	render() {
 		// if (!this.state.results) return <p className="p-5">Loading...</p>;
-		console.log("Results: ", this.state.results);
-
-		let { results } = this.state;
+		let results = this.props.location.state;
 		console.log(results);
 
 		return (
 			<div className="container">
 				<div className="row mt-5">
 					<div className="col-6">
-						<img
-							src="https://lumiere-a.akamaihd.net/v1/images/vicruls-sythe-main_e404bc44.jpeg"
-							className="w-100"
-						/>
+						<img src={results.imgUrl} className="w-100" />
 					</div>
 					<div className="col-6">
 						<div className="text-center text-light m-3">
-							<h2>{results ? results[0].propvalue : "Name"}</h2>
-							<p>{results ? results[9].propvalue : "Films"}</p>
+							<h2>{results.entity ? results.entity.name : "Name"}</h2>
+							<p />
 						</div>
 					</div>
 				</div>
@@ -64,8 +59,8 @@ export class Details extends React.Component {
 							<p />
 						</div>
 						<div className="affiliations m-3 p-2">
-							<h6>{results ? results[6].propname : "Attribute"}</h6>
-							<p className="text-center">{results ? results[6].propvalue : "..."}</p>
+							<h5>{results.entity ? Object.keys(results.entity)[0] : "Attribute"}</h5>
+							<p className="text-center">{results.entity ? Object.values(results.entity)[0] : "..."}</p>
 						</div>
 						<div className="locations p-2 m-3">
 							<h6>Gender</h6>

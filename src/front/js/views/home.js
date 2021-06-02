@@ -51,7 +51,14 @@ export class Home extends React.Component {
 								<div className="card-columns">
 									{store.characters
 										? store.characters.map((elem, index) => {
-												return <Card2 key={index} character={elem} index={index} />;
+												return (
+													<Card2
+														key={index}
+														imgUrl="https://lumiere-a.akamaihd.net/v1/images/vicruls-sythe-main_e404bc44.jpeg"
+														entity={elem}
+														index={index}
+													/>
+												);
 												// return <CharacterCard key={index} character={elem} index={index} />;
 										  })
 										: null}
@@ -66,7 +73,8 @@ export class Home extends React.Component {
 													<Card2
 														className="textCustom"
 														key={index}
-														planet={elem}
+														imgUrl="https://lumiere-a.akamaihd.net/v1/images/aeos-prime-main_1af6e847.jpeg"
+														entity={elem}
 														index={index}
 													/>
 												);
