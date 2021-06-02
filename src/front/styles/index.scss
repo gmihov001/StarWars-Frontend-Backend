@@ -1,3 +1,66 @@
-/* 
-    General Styles
-*/
+body {
+    font-family: 'Arial Narrow', 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.header {
+    img{max-height: 50px;}
+}
+.scroller {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.scroller::-webkit-scrollbar {
+    height: 10px;
+}
+.scroller::-webkit-scrollbar-track {
+    background-color: darkgray;
+    border-radius: 15px;
+}
+.scroller::-webkit-scrollbar-thumb {
+    background-color: gray;    
+    border-radius: 15px;      
+    //border: 3px solid orange;  
+}
+.fas.fa-trash {
+    cursor: pointer;
+    float: right;
+    margin-top: 2px;
+}
+body {
+    background:rgb(20, 25, 25);
+}
+h4 {
+    color: lightgray;
+    font-weight: 300;
+}
+.navbar {
+    background-color: black;
+}
+.card {
+    background-color: #202727;
+    color: white;
+    border-radius: 10px;
+    img {
+        border-radius: 10px 10px 0 0;
+        border-bottom: 2px solid hotpink; 
+    }
+}
+.learn-more {
+    color: hotpink;
+}
+.faves {
+    color: lightgray;
+}
+.dropdown-menu {
+    background-color: black;
+    color:lightgray;
+}
+.dropdown-item {
+    color: lightgray;
+    i {
+        color: hotpink;
+    }
+}
+a {
+    color: lightgray;
+}

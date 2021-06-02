@@ -3,21 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const Card2 = props => {
-	var data;
-	if (props.planet) {
-		data = props.planet;
-		console.log("Planet data", data);
-	}
-	if (props.character) {
-		data = props.character;
-		console.log("Character data", data);
-	}
-	let propArr = [];
-	for (let property in data) {
-		propArr.push({ propname: property, propvalue: data[property] });
-	}
-	console.log(propArr);
+export const CharacterCard = props => {
 	return (
 		<div className="card m-3" style={{ width: "18rem" }}>
 			<img
@@ -26,20 +12,20 @@ export const Card2 = props => {
 				alt="..."
 			/>
 			<div className="card-body">
-				<h5 className="card-title">{propArr[0].propvalue}</h5>
+				<h5 className="card-title">{props.character.name}</h5>
 				<p className="card-text">
-					{propArr[4].propname}: {propArr[4].propvalue}
+					Gender: {props.character.gender}
 					<br />
-					{propArr[6].propname}: {propArr[6].propvalue}
+					Hair Color: {props.character.hair_color}
 					<br />
-					{propArr[7].propname}: {propArr[7].propvalue}
+					Eye-Color: {props.character.eye_color}
 				</p>
 				<div className="d-flex justify-content-between">
 					<Link
 						to={{
 							pathname: `/details/${props.index + 1}`,
 							state: {
-								data: propArr
+								character: props.character
 							}
 						}}>
 						<button href="#" className="btn btn-outline-dark learn-more">
@@ -48,13 +34,14 @@ export const Card2 = props => {
 					</Link>
 					<Context.Consumer>
 						{({ actions, store }) => {
-							// const isFav = store.favorites.includes(props.character.name);
+							const isFav = store.favorites.find(f => f.name == props.character.name);
+							console.log("isFav: ", isFav);
 							return (
 								<button
 									type="button"
 									className="btn btn-outline-warning"
-									onClick={() => actions.addToFavorites(props.character.name)}>
-									<i className="fas fa-heart" />
+									onClick={isFav ? null : () => actions.addToFavorites(props.character.name)}>
+									{isFav ? <i className="fas fa-heart" /> : <i className="far fa-heart" />}
 								</button>
 							);
 						}}
@@ -65,9 +52,8 @@ export const Card2 = props => {
 	);
 };
 
-Card2.propTypes = {
+CharacterCard.propTypes = {
 	character: PropTypes.object,
-	planet: PropTypes.object,
 	name: PropTypes.string,
 	species: PropTypes.array,
 	gender: PropTypes.string,
