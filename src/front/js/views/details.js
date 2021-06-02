@@ -54,29 +54,29 @@ export class Details extends React.Component {
 				</div>
 				<div className="row ml-1 mr-1 background border-top border-light">
 					<div className="col-12 d-flex justify-content-between text-light text-center">
-						<div className="appearances p-2 m-3">
-							<h6>Name</h6>
-							<p />
-						</div>
 						<div className="affiliations m-3 p-2">
-							<h5>{results.entity ? Object.keys(results.entity)[0] : "Attribute"}</h5>
-							<p className="text-center">{results.entity ? Object.values(results.entity)[0] : "..."}</p>
+							<h5>{results.entity ? Object.keys(results.entity)[5] : "Attribute"}</h5>
+							<p className="text-center">{results.entity ? Object.values(results.entity)[5] : "..."}</p>
 						</div>
 						<div className="locations p-2 m-3">
-							<h6>Gender</h6>
-							<p />
+							<h5>{results.entity ? Object.keys(results.entity)[1] : "Attribute"}</h5>
+							<p className="text-center">{results.entity ? Object.values(results.entity)[1] : "..."}</p>
 						</div>
 						<div className="gender p-2 m-3">
-							<h6>Height</h6>
-							<p />
+							<h5>{results.entity ? Object.keys(results.entity)[2] : "Attribute"}</h5>
+							<p className="text-center">{results.entity ? Object.values(results.entity)[2] : "..."}</p>
 						</div>
 						<div className="dimensions p-2 m-3">
-							<h6>Skin Color</h6>
-							<p className="text-center" />
+							<h5>{results.entity ? Object.keys(results.entity)[6] : "Attribute"}</h5>
+							<p className="text-center">{results.entity ? Object.values(results.entity)[6] : "..."}</p>
 						</div>
 						<div className="species p-2 m-3">
-							<h6>Eye Color</h6>
-							<p />
+							<h5>{results.entity ? Object.keys(results.entity)[7] : "Attribute"}</h5>
+							<p className="text-center">{results.entity ? Object.values(results.entity)[7] : "..."}</p>
+						</div>
+						<div className="appearances p-2 m-3">
+							<h5>{results.entity ? Object.keys(results.entity)[4] : "Attribute"}</h5>
+							<p className="text-center">{results.entity ? Object.values(results.entity)[4] : "..."}</p>
 						</div>
 					</div>
 				</div>
