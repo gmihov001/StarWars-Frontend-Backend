@@ -52,12 +52,10 @@ export class Navbar extends React.Component {
 													className="dropdown-item d-flex align-items-center justify-content-between">
 													<Link
 														to={{
-															pathname: `/details/${props.index + 1}`,
-															state: {
-																data: propArr
-															}
+															pathname: `/details/${index + 1}`,
+															state: elm
 														}}>
-														{elm.name}
+														{elm.entity.name}
 													</Link>
 													&nbsp;&nbsp;
 													<i

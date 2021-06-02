@@ -7,7 +7,6 @@ import { Home } from "./views/home";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import { Details } from "./views/details";
-import { PlanetDetails } from "./views/planet_details";
 import { Navbar } from "./components/navbar";
 import { Footer } from "./components/footer";
 

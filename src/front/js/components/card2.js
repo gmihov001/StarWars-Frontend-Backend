@@ -48,7 +48,7 @@ export const Card2 = props => {
 								<button
 									type="button"
 									className="btn btn-outline-warning"
-									onClick={() => actions.addToFavorites(props.entity)}>
+									onClick={() => actions.addToFavorites(props)}>
 									<i className="fas fa-heart" />
 								</button>
 							);
