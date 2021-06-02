@@ -1,32 +1,56 @@
-const getState = ({ getStore, getActions, setStore }) => {
+const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			favorites: []
 		},
 		actions: {
+			loadPeople: () => {
+				fetch("https://swapi.dev/api/people/")
+					.then(response => {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(data => {
+						console.log("data", data);
+						setStore({ characters: data.results });
+					});
+			},
+			loadPlanets: () => {
+				fetch("https://swapi.dev/api/planets/")
+					.then(response => {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(data => {
+						console.log("data", data);
+						setStore({ planets: data.results });
+					})
+					.catch(error => console.log(error));
+			},
+			addToFavorites: name => {
+				var tempStore = getStore();
+				if (!tempStore.favorites.includes(name)) {
+					var newFavorite = {
+						name: name
+					};
+					tempStore.favorites.push(newFavorite);
+					setStore({ tempStore });
+				}
+			},
+			deleteFromFavorites: elm => {
+				var { favorites } = getStore();
+
+				setStore({
+					favorites: favorites.filter(f => f.name != elm.name)
+				});
+			},
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
-			},
-
-			getMessage: () => {
-				// fetching data from the backend
-				fetch(process.env.BACKEND_URL + "/api/hello")
-					.then(resp => resp.json())
-					.then(data => setStore({ message: data.message }))
-					.catch(error => console.log("Error loading message from backend", error));
 			},
 			changeColor: (index, color) => {
 				//get the store
