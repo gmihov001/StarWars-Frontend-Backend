@@ -40,9 +40,10 @@ const getState = ({ getStore, setStore }) => {
 			},
 			deleteFromFavorites: elm => {
 				var { favorites } = getStore();
+				let newFavorites = favorites.filter(f => f.name != elm.name);
 
 				setStore({
-					favorites: favorites.filter(f => f.name != elm.name)
+					favorites: newFavorites
 				});
 			},
 			// Use getActions to call a function within a fuction
