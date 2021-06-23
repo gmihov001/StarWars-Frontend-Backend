@@ -34,6 +34,5 @@ class Favorites(db.Model):
             "name": self.name,
             "entity_id": self.entity_id,
             "url": self.url,
-            # do not serialize the password, its a security breach
         }
               
