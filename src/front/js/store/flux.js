@@ -39,8 +39,11 @@ const getState = ({ getStore, setStore }) => {
 				}
 			},
 			deleteFromFavorites: elm => {
+				console.log(elm);
+
 				var { favorites } = getStore();
-				let newFavorites = favorites.filter(f => f.name != elm.name);
+				let newFavorites = favorites.filter(f => f.entity.name != elm.entity.name);
+				console.log(newFavorites);
 
 				setStore({
 					favorites: newFavorites

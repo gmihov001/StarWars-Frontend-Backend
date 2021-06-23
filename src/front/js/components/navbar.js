@@ -26,7 +26,7 @@ export class Navbar extends React.Component {
 									width="auto;"
 								/>
 							</Link>
-							<a className={"nav-item dropdown " + (this.state.showDropdown ? "show" : "")}>
+							<div className={"nav-item dropdown " + (this.state.showDropdown ? "show" : "")}>
 								<button
 									className="faves btn btn-outline-dark nav-link dropdown-toggle"
 									href="#"
@@ -66,7 +66,7 @@ export class Navbar extends React.Component {
 										  ))
 										: null}
 								</div>
-							</a>
+							</div>
 						</div>
 					)}
 				</Context.Consumer>
