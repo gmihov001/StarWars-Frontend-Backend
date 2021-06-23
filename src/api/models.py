@@ -17,7 +17,7 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-class Favorites(db.Model):
+class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     entity_type = db.Column(db.String(120), unique=True, nullable=False)
     name = db.Column(db.String(80), unique=True, nullable=False)
