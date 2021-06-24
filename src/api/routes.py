@@ -22,7 +22,7 @@ def handle_users():
     user = request.get_json()
 
     if request.method == 'POST':
-        new_user = User(email=user['email'], password=user['password'])
+        new_user = User(username=user['username'] , email=user['email'], password=user['password'])
         db.session.add(new_user)
         db.session.commit()
 
@@ -35,3 +35,9 @@ def handle_users():
     }
 
     return jsonify(response_body), 200    
+
+@api.route('/user/favorites', methods=['GET'])
+def get_favorites():
+    print(request.get_json())
+    print(request.get_data())
+    print(request.args.get("username"))
