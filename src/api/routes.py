@@ -49,7 +49,7 @@ def get_favorites():
         f"{username}'s favorites: " : favorites_serialized
     }), 200
 
-@api.route('/favorite/planet/<int:planet_id>', methods=['POST', 'DELETE'])
+@api.route('/favorite/planets/<int:planet_id>', methods=['POST', 'DELETE'])
 def handle_planet(planet_id):
     planet = request.get_json()
     if planet is None:
@@ -78,3 +78,33 @@ def handle_planet(planet_id):
     }
 
     return jsonify(response_body), 200        
+
+@api.route('/favorite/people/<int:person_id>', methods=['POST', 'DELETE'])
+def handle_people(person_id):
+    person = request.get_json()
+    if person is None:
+        person = {}
+        person['username'] = request.args.get("username")
+
+    if request.method == 'POST':
+        new_person = Favorite(entity_type="person", name=person['name'], entity_id=person_id, url=person['url'], username=person['username'])
+        db.session.add(new_person)
+        db.session.commit()
+
+    if request.method == 'DELETE':
+        deleted_person = Favorite.query.filter_by(entity_type="person", entity_id=person_id).first()
+        print("Deleted: ", deleted_person)
+        if deleted_person is None:
+            raise APIException('The character does not exist', status_code=404)
+        db.session.delete(deleted_person)
+        db.session.commit()            
+
+    favorites = Favorite.query.filter_by(username=person['username'])
+    favorites_serialized = list(map(lambda x: x.serialize(), favorites))
+
+    response_body = {
+        "message": "Success",
+        f"{person['username']}'s favorites": favorites_serialized
+    }
+
+    return jsonify(response_body), 200            
