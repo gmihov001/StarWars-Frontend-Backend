@@ -39,6 +39,9 @@ def handle_users():
 @api.route('/user/favorites', methods=['GET'])
 def get_favorites():
     username = request.args.get("username")
+    if username is None:
+        return "No user found", 404
+
     favorites = Favorite.query.filter_by(username=username)
     favorites_serialized = list(map(lambda x: x.serialize(), favorites))
 
