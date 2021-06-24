@@ -21,10 +21,10 @@ class User(db.Model):
 
 class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    entity_type = db.Column(db.String(120), unique=True, nullable=False)
+    entity_type = db.Column(db.String(120), unique=False, nullable=False)
     name = db.Column(db.String(80), unique=True, nullable=False)
     entity_id = db.Column(db.Integer, unique=True, nullable=False)
-    url = db.Column(db.Boolean(), unique=False, nullable=False)
+    url = db.Column(db.String(200), unique=False, nullable=False)
     username = db.Column(db.String(120), unique=False, nullable=False)
 
     def __repr__(self):
@@ -37,5 +37,6 @@ class Favorite(db.Model):
             "name": self.name,
             "entity_id": self.entity_id,
             "url": self.url,
+            "username": self.username,
         }
               
