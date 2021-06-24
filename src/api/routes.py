@@ -40,7 +40,7 @@ def handle_users():
 def get_favorites():
     username = request.args.get("username")
     if username is None:
-        return "No user found", 404
+        raise APIException('No user found', status_code=404)
 
     favorites = Favorite.query.filter_by(username=username)
     favorites_serialized = list(map(lambda x: x.serialize(), favorites))
@@ -52,6 +52,9 @@ def get_favorites():
 @api.route('/favorite/planet/<int:planet_id>', methods=['POST', 'DELETE'])
 def handle_planet(planet_id):
     planet = request.get_json()
+    if planet is None:
+        planet = {}
+        planet['username'] = request.args.get("username")
 
     if request.method == 'POST':
         new_planet = Favorite(entity_type="planet", name=planet['name'], entity_id=planet_id, url=planet['url'], username=planet['username'])
@@ -59,16 +62,12 @@ def handle_planet(planet_id):
         db.session.commit()
 
     if request.method == 'DELETE':
-        planet = Favorite.query.filter_by(entity_type="planet", entity_id=planet_id)
-        print(todo)
-        if todo is None:
-            raise APIException('The entry does not exist', status_code=400)
-        db.session.delete(todo)
-        db.session.commit()
-        todos = Todo.query.filter_by(username=username)
-        todos = list(map(lambda x: x.serialize(), todos))
-        return jsonify(todos), 200   
-            
+        deleted_planet = Favorite.query.filter_by(entity_type="planet", entity_id=planet_id).first()
+        print("Deleted: ", deleted_planet)
+        if deleted_planet is None:
+            raise APIException('The planet does not exist', status_code=404)
+        db.session.delete(deleted_planet)
+        db.session.commit()            
 
     favorites = Favorite.query.filter_by(username=planet['username'])
     favorites_serialized = list(map(lambda x: x.serialize(), favorites))
