@@ -48,3 +48,22 @@ def get_favorites():
     return jsonify({
         f"{username}'s favorites: " : favorites_serialized
     }), 200
+
+@api.route('/favorite/planet/<int:planet_id>', methods=['POST', 'DELETE'])
+def handle_planet(planet_id):
+    user = request.get_json()
+
+    if request.method == 'POST':
+        new_user = User(username=user['username'] , email=user['email'], password=user['password'])
+        db.session.add(new_user)
+        db.session.commit()
+
+    users = User.query.all()
+    users_serialized = list(map(lambda x: x.serialize(), users))     
+
+    response_body = {
+        "message": "Success",
+        "users": users_serialized
+    }
+
+    return jsonify(response_body), 200        
