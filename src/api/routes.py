@@ -17,9 +17,18 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-@api.route('/user', methods=['POST'])
-def add_user():
-    body = request.json
+@api.route('/users', methods=['POST', 'GET'])
+def handle_users():
+    user = request.get_json()
+
+    if request.method == 'POST':
+        new_user = User(email=user['email'], password=user['password'])
+        db.session.add(new_user)
+        db.session.commit()
+
+    users = User.query.    
+
+
     
 
     response_body = {
