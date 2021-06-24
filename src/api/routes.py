@@ -58,6 +58,18 @@ def handle_planet(planet_id):
         db.session.add(new_planet)
         db.session.commit()
 
+    if request.method == 'DELETE':
+        planet = Favorite.query.filter_by(entity_type="planet", entity_id=planet_id)
+        print(todo)
+        if todo is None:
+            raise APIException('The entry does not exist', status_code=400)
+        db.session.delete(todo)
+        db.session.commit()
+        todos = Todo.query.filter_by(username=username)
+        todos = list(map(lambda x: x.serialize(), todos))
+        return jsonify(todos), 200   
+            
+
     favorites = Favorite.query.filter_by(username=planet['username'])
     favorites_serialized = list(map(lambda x: x.serialize(), favorites))
 
