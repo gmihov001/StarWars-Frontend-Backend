@@ -38,6 +38,10 @@ def handle_users():
 
 @api.route('/user/favorites', methods=['GET'])
 def get_favorites():
-    print(request.get_json())
-    print(request.get_data())
-    print(request.args.get("username"))
+    username = request.args.get("username")
+    favorites = Favorite.query.filter_by(username=username)
+    favorites_serialized = list(map(lambda x: x.serialize(), favorites))
+
+    return jsonify({
+        f"{username}'s favorites: " : favorites_serialized
+    }), 200

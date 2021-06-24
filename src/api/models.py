@@ -25,6 +25,7 @@ class Favorite(db.Model):
     name = db.Column(db.String(80), unique=True, nullable=False)
     entity_id = db.Column(db.Integer, unique=True, nullable=False)
     url = db.Column(db.Boolean(), unique=False, nullable=False)
+    username = db.Column(db.String(120), unique=False, nullable=False)
 
     def __repr__(self):
         return '<Favorite %r>' % self.name
