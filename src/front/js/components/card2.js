@@ -6,12 +6,11 @@ import { Context } from "../store/appContext";
 export const Card2 = props => {
 	var data = props.entity;
 	const { store, actions } = useContext(Context);
-	var [isFav, setIsFav] = useState(null);
+	const [isFav, setIsFav] = useState(null);
+
 	useEffect(() => {
-		setIsFav(store.favorites.find(favorite => favorite.entity.name == props.entity.name));
-		console.log(store.favorites);
-		console.log(props.entity.name);
-		console.log("isFav", isFav);
+		var result = store.favorites.find(favorite => favorite.entity.name == props.entity.name);
+		setIsFav(result);
 	});
 	// if (props.planet) {
 	// 	data = props.planet;
