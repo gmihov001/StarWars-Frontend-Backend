@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Card2 = props => {
 	var data = props.entity;
-
+	const { store, actions } = useContext(Context);
 	// if (props.planet) {
 	// 	data = props.planet;
 	// 	console.log("Planet data", data);
@@ -19,6 +19,8 @@ export const Card2 = props => {
 		propArr.push({ propname: property, propvalue: data[property] });
 	}
 	// console.log("propArr", propArr);
+	const isFav = store.favorites.includes(props.entity.name);
+
 	return (
 		<div className="card m-3" style={{ width: "18rem" }}>
 			<img src={props.imgUrl} className="card-img-top" alt="..." />
@@ -41,19 +43,21 @@ export const Card2 = props => {
 							LEARN MORE
 						</button>
 					</Link>
-					<Context.Consumer>
-						{({ actions, store }) => {
-							// const isFav = store.favorites.includes(props.character.name);
-							return (
-								<button
-									type="button"
-									className="btn btn-outline-warning"
-									onClick={() => actions.addToFavorites(props)}>
-									<i className="fas fa-heart" />
-								</button>
-							);
-						}}
-					</Context.Consumer>
+					{isFav ? (
+						<button
+							type="button"
+							className="btn btn-outline-warning"
+							onClick={() => actions.addToFavorites(props)}>
+							<i className="fas fa-heart" />
+						</button>
+					) : (
+						<button
+							type="button"
+							className="btn btn-outline-warning"
+							onClick={() => actions.addToFavorites(props)}>
+							<i className="fas fa-heart" />
+						</button>
+					)}
 				</div>
 			</div>
 		</div>
