@@ -32,6 +32,8 @@ const getState = ({ getStore, setStore }) => {
 					.catch(error => console.log(error));
 			},
 			addToFavorites: entity => {
+				console.log("Entity: ", entity);
+
 				var tempStore = getStore();
 				if (!tempStore.favorites.includes(entity)) {
 					tempStore.favorites.push(entity);

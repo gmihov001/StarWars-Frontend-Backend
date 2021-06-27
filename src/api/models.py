@@ -7,6 +7,7 @@ class User(db.Model):
     username = db.Column(db.String(120), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
+    favorites = db.relationship('Favorite', backref='user')
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -16,6 +17,7 @@ class User(db.Model):
             "id": self.id,
             "username": self.username,
             "email": self.email,
+            "favorites": self.favorites,
             # do not serialize the password, its a security breach
         }
 
@@ -25,7 +27,7 @@ class Favorite(db.Model):
     name = db.Column(db.String(80), unique=True, nullable=False)
     entity_id = db.Column(db.Integer, unique=True, nullable=False)
     url = db.Column(db.String(200), unique=False, nullable=False)
-    username = db.Column(db.String(120), unique=False, nullable=False)
+    username = db.Column(db.String(120), db.ForeignKey(user.name), unique=False, nullable=False)
 
     def __repr__(self):
         return '<Favorite %r>' % self.name
