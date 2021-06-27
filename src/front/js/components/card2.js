@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
@@ -6,6 +6,13 @@ import { Context } from "../store/appContext";
 export const Card2 = props => {
 	var data = props.entity;
 	const { store, actions } = useContext(Context);
+	var [isFav, setIsFav] = useState(null);
+	useEffect(() => {
+		setIsFav(store.favorites.find(favorite => favorite.entity.name == props.entity.name));
+		console.log(store.favorites);
+		console.log(props.entity.name);
+		console.log("isFav", isFav);
+	});
 	// if (props.planet) {
 	// 	data = props.planet;
 	// 	console.log("Planet data", data);
@@ -19,7 +26,6 @@ export const Card2 = props => {
 		propArr.push({ propname: property, propvalue: data[property] });
 	}
 	// console.log("propArr", propArr);
-	const isFav = store.favorites.includes(props.entity.name);
 
 	return (
 		<div className="card m-3" style={{ width: "18rem" }}>
@@ -47,7 +53,7 @@ export const Card2 = props => {
 						<button
 							type="button"
 							className="btn btn-outline-warning"
-							onClick={() => actions.addToFavorites(props)}>
+							onClick={() => actions.deleteFromFavorites(props)}>
 							<i className="fas fa-heart" />
 						</button>
 					) : (
@@ -55,7 +61,7 @@ export const Card2 = props => {
 							type="button"
 							className="btn btn-outline-warning"
 							onClick={() => actions.addToFavorites(props)}>
-							<i className="fas fa-heart" />
+							<i className="far fa-heart" />
 						</button>
 					)}
 				</div>
