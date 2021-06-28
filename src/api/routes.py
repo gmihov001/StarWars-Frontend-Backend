@@ -52,9 +52,9 @@ def get_favorites():
 @api.route('/favorite/planets/<int:planet_id>', methods=['POST', 'DELETE'])
 def handle_planet(planet_id):
     planet = request.get_json()
-    if planet is None:
-        planet = {}
-        planet['username'] = request.args.get("username")
+    # if planet is None:
+    #     planet = {}
+    #     planet['username'] = request.args.get("username")
 
     if request.method == 'POST':
         new_planet = Favorite(entity_type="planet", name=planet['name'], entity_id=planet_id, url=planet['url'], username=planet['username'])
@@ -62,7 +62,7 @@ def handle_planet(planet_id):
         db.session.commit()
 
     if request.method == 'DELETE':
-        deleted_planet = Favorite.query.filter_by(entity_type="planet", entity_id=planet_id).first()
+        deleted_planet = Favorite.query.filter_by(entity_type="planet", entity_id=planet_id, username=planet['username']).first()
         print("Deleted: ", deleted_planet)
         if deleted_planet is None:
             raise APIException('The planet does not exist', status_code=404)
@@ -82,9 +82,9 @@ def handle_planet(planet_id):
 @api.route('/favorite/people/<int:person_id>', methods=['POST', 'DELETE'])
 def handle_people(person_id):
     person = request.get_json()
-    if person is None:
-        person = {}
-        person['username'] = request.args.get("username")
+    # if person is None:
+    #     person = {}
+    #     person['username'] = request.args.get("username")
 
     if request.method == 'POST':
         new_person = Favorite(entity_type="person", name=person['name'], entity_id=person_id, url=person['url'], username=person['username'])
@@ -92,7 +92,7 @@ def handle_people(person_id):
         db.session.commit()
 
     if request.method == 'DELETE':
-        deleted_person = Favorite.query.filter_by(entity_type="person", entity_id=person_id).first()
+        deleted_person = Favorite.query.filter_by(entity_type="person", entity_id=person_id, username=person['username']).first()
         print("Deleted: ", deleted_person)
         if deleted_person is None:
             raise APIException('The character does not exist', status_code=404)
