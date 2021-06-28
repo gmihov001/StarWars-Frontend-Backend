@@ -75,4 +75,40 @@ class Favorite(db.Model):
             "url": self.url,
             "username": self.username,
         }
+
+class Planet(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    entity_id = db.Column(db.Integer, unique=True, nullable=False)
+    url = db.Column(db.String(200), unique=False, nullable=False)
+    favorite = db.Column(db.Integer, db.ForeignKey('favorite.id'), unique=False, nullable=False)
+
+    def __repr__(self):
+        return '<Planet %r>' % self.name
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "entity_id": self.entity_id,
+            "url": self.url,
+        }
+
+class Person(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    entity_id = db.Column(db.Integer, unique=True, nullable=False)
+    url = db.Column(db.String(200), unique=False, nullable=False)
+    favorite = db.Column(db.Integer, db.ForeignKey('favorite.id'), unique=False, nullable=False)
+
+    def __repr__(self):
+        return '<Person %r>' % self.name
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "entity_id": self.entity_id,
+            "url": self.url,
+        }                
               
