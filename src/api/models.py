@@ -10,7 +10,7 @@ class User(db.Model):
     favorites = db.relationship('Favorite', backref='user')
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User id=%r, username=%r, email=%r, password=%r>' % (self.id, self.username, self.email, self.password)
 
     def serialize(self):
         return {
