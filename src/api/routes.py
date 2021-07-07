@@ -26,13 +26,13 @@ def handle_users():
         db.session.add(new_user)
         db.session.commit()
 
-    users = User.query.get(1)
+    users = User.query.all()
     print(users)
-    # users_serialized = list(map(lambda x: x.serialize(), users))     
+    users_serialized = list(map(lambda x: x.serialize(), users))     
 
     response_body = {
         "message": "Success",
-        "users": users.serialize()
+        "users": users_serialized
     }
 
     return jsonify(response_body), 200    
