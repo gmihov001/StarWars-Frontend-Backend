@@ -14,7 +14,14 @@ export const Login = props => {
 			<form>
 				<div className="form-group">
 					<label htmlFor="exampleInputUsername">USERNAME</label>
-					<input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+					<input
+						type="text"
+						className="form-control"
+						value={username}
+						onChange={e => setUsername(e.target.value)}
+						id="exampleInputUsername"
+						aria-describedby="emailHelp"
+					/>
 				</div>
 				<div className="form-group">
 					<label htmlFor="exampleInputPassword1">PASSWORD</label>
@@ -30,13 +37,13 @@ export const Login = props => {
 
 				<div className="d-flex justify-content-around">
 					<button
-						type="submit"
+						type="button"
 						className="btn btn-secondary px-5 mx-3"
 						onClick={() => actions.setUser(username)}>
 						LOG IN
 					</button>
 
-					<button type="submit" className="btn btn-secondary px-5 mx-3">
+					<button type="button" className="btn btn-secondary px-5 mx-3">
 						REGISTER
 					</button>
 				</div>
