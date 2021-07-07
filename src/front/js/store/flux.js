@@ -5,6 +5,9 @@ const getState = ({ getStore, setStore }) => {
 			favorites: []
 		},
 		actions: {
+			setUser: username => {
+				setStore({ user: username });
+			},
 			loadPeople: () => {
 				fetch("https://swapi.dev/api/people/")
 					.then(response => {
