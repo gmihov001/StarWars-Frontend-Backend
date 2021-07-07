@@ -35,14 +35,36 @@ const getState = ({ getStore, setStore }) => {
 					})
 					.catch(error => console.log(error));
 			},
-			addToFavorites: entity => {
-				console.log("Entity: ", entity);
+			// Without fetch/backend:
+			// addToFavorites: entity => {
+			// 	console.log("Entity: ", entity);
 
-				var tempStore = getStore();
-				if (!tempStore.favorites.includes(entity)) {
-					tempStore.favorites.push(entity);
-					setStore({ tempStore });
-				}
+			// 	var tempStore = getStore();
+			// 	if (!tempStore.favorites.includes(entity)) {
+			// 		tempStore.favorites.push(entity);
+			// 		setStore({ tempStore });
+			// 	}
+			// },
+			// With fetch/backend:
+			addToFavorites: newFave => {
+				console.log("newFave", newFave);
+				let url =
+					newFave.entityType == "person"
+						? "https://3001-violet-octopus-gfad7ujl.ws-us11.gitpod.io/api/favorite/people/"
+						: "https://3001-violet-octopus-gfad7ujl.ws-us11.gitpod.io/api/favorite/planets/";
+
+				fetch(url + (newFave.index + 1), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						name: newFave.entity.name,
+						url: newFave.entity.url,
+						username: getStore().user
+					})
+				})
+					.then()
+					.then()
+					.catch();
 			},
 			deleteFromFavorites: elm => {
 				console.log(elm);
