@@ -6,6 +6,7 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 
 export const Login = props => {
 	const { store, actions } = useContext(Context);
+	const [username, setUsername] = useState("");
 	const params = useParams();
 
 	return (
@@ -28,7 +29,10 @@ export const Login = props => {
 				</div>
 
 				<div className="d-flex justify-content-around">
-					<button type="submit" className="btn btn-secondary px-5 mx-3">
+					<button
+						type="submit"
+						className="btn btn-secondary px-5 mx-3"
+						onClick={() => actions.setUser(username)}>
 						LOG IN
 					</button>
 
