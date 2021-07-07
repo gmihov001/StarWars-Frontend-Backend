@@ -27,6 +27,7 @@ def handle_users():
         db.session.commit()
 
     users = User.query.all()
+    print('Users', users)
     users_serialized = list(map(lambda x: x.serialize(), users))     
 
     response_body = {
