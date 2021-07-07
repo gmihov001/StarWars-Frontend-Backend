@@ -4,6 +4,7 @@ import ScrollToTop from "./components/scrollToTop";
 import injectContext from "./store/appContext";
 
 import { Home } from "./views/home";
+import { Login } from "./views/login";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import { Details } from "./views/details";
@@ -40,7 +41,7 @@ class Layout extends React.Component {
 							<Route exact path="/demo">
 								<Demo />
 							</Route>
-
+							<Route path="/login" component={Login} />
 							<Route path="/details/:id" component={Details} />
 
 							<Route exact path="/single/:theid">

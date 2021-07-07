@@ -4,25 +4,37 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 
-export const Single = props => {
+export const Login = props => {
 	const { store, actions } = useContext(Context);
 	const params = useParams();
 
 	return (
-		<div className="jumbotron">
-			<h1 className="display-4">This will show the demo element: {store.demo[params.theid].title}</h1>
-			<img src={rigoImageUrl} />
-			<hr className="my-4" />
+		<div className="jumbotron w-50 mt-5 mx-auto bg-dark learn-more">
+			<form>
+				<div className="form-group">
+					<label htmlFor="exampleInputUsername">USERNAME</label>
+					<input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+				</div>
+				<div className="form-group">
+					<label htmlFor="exampleInputPassword1">PASSWORD</label>
+					<input type="password" className="form-control" id="exampleInputPassword1" />
+				</div>
+				<div className="form-group">
+					<label htmlFor="exampleInputEmail1">EMAIL</label>
+					<input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+					<small id="emailHelp" className="form-text text-light">
+						ONLY TO REGISTER
+					</small>
+				</div>
 
-			<Link to="/">
-				<span className="btn btn-primary btn-lg" href="#" role="button">
-					Back home
-				</span>
-			</Link>
+				<button type="submit" className="btn btn-primary">
+					LOG IN
+				</button>
+			</form>
 		</div>
 	);
 };
 
-Single.propTypes = {
+Login.propTypes = {
 	match: PropTypes.object
 };

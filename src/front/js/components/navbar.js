@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export class Navbar extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			showDropdown: false
 		};
@@ -26,7 +26,9 @@ export class Navbar extends React.Component {
 									width="auto;"
 								/>
 							</Link>
-							<button className="faves px-5 btn btn-lg btn-outline-dark nav-link">LOG IN</button>
+							<Link to="/login">
+								<button className="faves px-5 btn btn-lg btn-outline-dark nav-link">LOG IN</button>
+							</Link>
 							<div className={"nav-item dropdown " + (this.state.showDropdown ? "show" : "")}>
 								<button
 									className="faves px-3 btn btn-lg btn-outline-dark nav-link dropdown-toggle"
@@ -76,5 +78,6 @@ export class Navbar extends React.Component {
 	}
 }
 Navbar.propTypes = {
-	index: PropTypes.number
+	index: PropTypes.number,
+	history: PropTypes.object
 };
