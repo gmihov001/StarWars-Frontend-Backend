@@ -1,6 +1,7 @@
 const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
+			user: null,
 			favorites: []
 		},
 		actions: {

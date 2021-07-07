@@ -26,9 +26,10 @@ export class Navbar extends React.Component {
 									width="auto;"
 								/>
 							</Link>
+							<button className="faves px-5 btn btn-lg btn-outline-dark nav-link">LOG IN</button>
 							<div className={"nav-item dropdown " + (this.state.showDropdown ? "show" : "")}>
 								<button
-									className="faves btn btn-outline-dark nav-link dropdown-toggle"
+									className="faves px-3 btn btn-lg btn-outline-dark nav-link dropdown-toggle"
 									href="#"
 									id="navbarDropdown"
 									role="button"
