@@ -23,8 +23,8 @@ class User(db.Model):
 class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     entity_type = db.Column(db.String(120), unique=False, nullable=False)
-    name = db.Column(db.String(80), unique=True, nullable=False)
-    entity_id = db.Column(db.Integer, unique=True, nullable=False)
+    name = db.Column(db.String(80), unique=False, nullable=False)
+    entity_id = db.Column(db.Integer, unique=False, nullable=False)
     url = db.Column(db.String(200), unique=False, nullable=False)
     username = db.Column(db.String(120), db.ForeignKey('user.username'), unique=False, nullable=False)
 

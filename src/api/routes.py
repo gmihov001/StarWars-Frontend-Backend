@@ -82,6 +82,7 @@ def handle_planet(planet_id):
 
 @api.route('/favorite/people/<int:person_id>', methods=['POST', 'DELETE'])
 def handle_people(person_id):
+    response_body = None
     person = request.get_json()
     # if person is None:
     #     person = {}
@@ -92,6 +93,14 @@ def handle_people(person_id):
         db.session.add(new_person)
         db.session.commit()
 
+        favorites = Favorite.query.filter_by(username=person['username'])
+        favorites_serialized = list(map(lambda x: x.serialize(), favorites))
+
+        response_body = {
+            "message": "Success",
+            f"{person['username']}'s favorites": favorites_serialized
+        }
+
     if request.method == 'DELETE':
         deleted_person = Favorite.query.filter_by(entity_type="person", entity_id=person_id, username=person['username']).first()
         print("Deleted: ", deleted_person)
@@ -100,12 +109,14 @@ def handle_people(person_id):
         db.session.delete(deleted_person)
         db.session.commit()            
 
-    favorites = Favorite.query.filter_by(username=person['username'])
-    favorites_serialized = list(map(lambda x: x.serialize(), favorites))
+        favorites = Favorite.query.filter_by(username=person['username'])
+        favorites_serialized = list(map(lambda x: x.serialize(), favorites))
 
-    response_body = {
-        "message": "Success",
-        f"{person['username']}'s favorites": favorites_serialized
-    }
+        response_body = {
+            "message": "Success",
+            f"{person['username']}'s favorites": favorites_serialized,
+            f"deleted from {person['username']}": deleted_person.serialize()
+        }
+
 
     return jsonify(response_body), 200            
