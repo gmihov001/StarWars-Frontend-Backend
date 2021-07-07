@@ -27,9 +27,15 @@ export const Login = props => {
 					</small>
 				</div>
 
-				<button type="submit" className="btn btn-primary">
-					LOG IN
-				</button>
+				<div className="d-flex justify-content-around">
+					<button type="submit" className="btn btn-secondary px-5 mx-3">
+						LOG IN
+					</button>
+
+					<button type="submit" className="btn btn-secondary px-5 mx-3">
+						REGISTER
+					</button>
+				</div>
 			</form>
 		</div>
 	);
