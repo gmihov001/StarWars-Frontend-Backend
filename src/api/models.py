@@ -29,7 +29,7 @@ class Favorite(db.Model):
     username = db.Column(db.String(120), db.ForeignKey('user.username'), unique=False, nullable=False)
 
     def __repr__(self):
-        return '<Favorite %r>' % self.id
+        return '<Favorite id=%r, entity_type=%r, name=%r, entity_id=%r, url=%r, username=%r>' % (self.id, self.entity_type, self.name, self.entity_id, self.url, self.username)
 
     def serialize(self):
         return {
