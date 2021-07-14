@@ -27,7 +27,16 @@ export class Navbar extends React.Component {
 								/>
 							</Link>
 							{store.user ? (
-								<h2 className="faves btn btn-lg btn-outline-dark nav-link"> Hello {store.user} </h2>
+								<>
+									<h2 className="faves btn btn-lg btn-outline-dark nav-link"> Hello {store.user} </h2>
+									<Link to="/home">
+										<button
+											className="faves px-5 btn btn-lg btn-outline-dark nav-link"
+											onClick={() => actions.setUser("")}>
+											LOG OUT
+										</button>
+									</Link>
+								</>
 							) : (
 								<Link to="/login">
 									<button className="faves px-5 btn btn-lg btn-outline-dark nav-link">LOG IN</button>
