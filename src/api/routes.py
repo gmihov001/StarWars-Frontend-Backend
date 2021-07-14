@@ -116,8 +116,8 @@ def handle_people(person_id):
         favorites_serialized = list(map(lambda x: x.serialize(), favorites))
 
         response_body = {
-            f"{person['username']}'s favorites": favorites_serialized,
-            f"deleted from {person['username']}": deleted_person.serialize()
+            "favorites": favorites_serialized,
+            "deleted": deleted_person.serialize()
         }
 
 

@@ -112,7 +112,7 @@ const getState = ({ getStore, setStore }) => {
 			deleteFavorite: element => {
 				console.log("element", element);
 				let url =
-					element.entityType == "person"
+					element.entity_type == "person"
 						? getStore().api_address + "/favorite/people/"
 						: getStore().api_address + "/favorite/planets/";
 
