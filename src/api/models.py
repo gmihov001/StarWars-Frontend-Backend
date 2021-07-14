@@ -40,5 +40,3 @@ class Favorite(db.Model):
             "url": self.url,
             "username": self.username,
         }
-
-              
