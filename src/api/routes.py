@@ -52,10 +52,6 @@ def get_favorites(username):
 def handle_planet(planet_id):
     planet = request.get_json()
     if planet:
-            # if planet is None:
-        #     planet = {}
-        #     planet['username'] = request.args.get("username")
-
         if request.method == 'POST':
             new_planet = Favorite(entity_type="planet", name=planet['name'], entity_id=planet_id, url=planet['url'], username=planet['username'])
             db.session.add(new_planet)
