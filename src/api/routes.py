@@ -74,7 +74,8 @@ def handle_planet(planet_id):
         favorites_serialized = list(map(lambda x: x.serialize(), favorites))
 
         response_body = {
-            "favorites": favorites_serialized
+            "favorites": favorites_serialized,
+            "deleted": deleted_planet.serialize()
         }
 
         return jsonify(response_body), 200        
