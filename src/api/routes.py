@@ -38,7 +38,6 @@ def handle_users():
 
 @api.route('/<username>/favorites', methods=['GET'])
 def get_favorites(username):
-    # username = request.args.get("username")
     if username is None:
         raise APIException('No user found', status_code=404)
 
