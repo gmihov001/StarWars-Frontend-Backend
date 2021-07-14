@@ -92,7 +92,7 @@ const getState = ({ getStore, setStore }) => {
 						.then(resp_body => {
 							setStore({ favorites: resp_body.favorites });
 						})
-						.catch();
+						.catch(err => console.log(err));
 				}
 			},
 			// # Delete favorite without backend/fetch
