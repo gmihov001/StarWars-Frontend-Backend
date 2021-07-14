@@ -31,15 +31,14 @@ def handle_users():
     users_serialized = list(map(lambda x: x.serialize(), users))     
 
     response_body = {
-        "message": "Success",
         "users": users_serialized
     }
 
     return jsonify(response_body), 200    
 
-@api.route('/user/favorites', methods=['GET'])
-def get_favorites():
-    username = request.args.get("username")
+@api.route('/<username>/favorites', methods=['GET'])
+def get_favorites(username):
+    # username = request.args.get("username")
     if username is None:
         raise APIException('No user found', status_code=404)
 
@@ -47,43 +46,48 @@ def get_favorites():
     favorites_serialized = list(map(lambda x: x.serialize(), favorites))
 
     return jsonify({
-        f"{username}'s favorites: " : favorites_serialized
+        "favorites" : favorites_serialized
     }), 200
 
 @api.route('/favorite/planets/<int:planet_id>', methods=['POST', 'DELETE'])
 def handle_planet(planet_id):
     planet = request.get_json()
-    # if planet is None:
-    #     planet = {}
-    #     planet['username'] = request.args.get("username")
+    if planet:
+            # if planet is None:
+        #     planet = {}
+        #     planet['username'] = request.args.get("username")
 
-    if request.method == 'POST':
-        new_planet = Favorite(entity_type="planet", name=planet['name'], entity_id=planet_id, url=planet['url'], username=planet['username'])
-        db.session.add(new_planet)
-        db.session.commit()
+        if request.method == 'POST':
+            new_planet = Favorite(entity_type="planet", name=planet['name'], entity_id=planet_id, url=planet['url'], username=planet['username'])
+            db.session.add(new_planet)
+            db.session.commit()
 
-    if request.method == 'DELETE':
-        deleted_planet = Favorite.query.filter_by(entity_type="planet", entity_id=planet_id, username=planet['username']).first()
-        print("Deleted: ", deleted_planet)
-        if deleted_planet is None:
-            raise APIException('The planet does not exist', status_code=404)
-        db.session.delete(deleted_planet)
-        db.session.commit()            
+        if request.method == 'DELETE':
+            deleted_planet = Favorite.query.filter_by(entity_type="planet", entity_id=planet_id, username=planet['username']).first()
+            print("Deleted: ", deleted_planet)
+            if deleted_planet is None:
+                raise APIException('The planet does not exist', status_code=404)
+            db.session.delete(deleted_planet)
+            db.session.commit()            
 
-    favorites = Favorite.query.filter_by(username=planet['username'])
-    favorites_serialized = list(map(lambda x: x.serialize(), favorites))
+        favorites = Favorite.query.filter_by(username=planet['username'])
+        favorites_serialized = list(map(lambda x: x.serialize(), favorites))
 
-    response_body = {
-        "message": "Success",
-        f"{planet['username']}'s favorites": favorites_serialized
-    }
+        response_body = {
+            "favorites": favorites_serialized
+        }
 
-    return jsonify(response_body), 200        
+        return jsonify(response_body), 200        
+
+    else:        
+        raise APIException('Username not provided', status_code=404)
 
 @api.route('/favorite/people/<int:person_id>', methods=['POST', 'DELETE'])
 def handle_people(person_id):
     response_body = None
     person = request.get_json()
+    if person is None:
+        raise APIException('Username not provided', status_code=404)
     # if person is None:
     #     person = {}
     #     person['username'] = request.args.get("username")
@@ -97,8 +101,7 @@ def handle_people(person_id):
         favorites_serialized = list(map(lambda x: x.serialize(), favorites))
 
         response_body = {
-            "message": "Success",
-            f"{person['username']}'s favorites": favorites_serialized
+            "favorites": favorites_serialized
         }
 
     if request.method == 'DELETE':
@@ -113,7 +116,6 @@ def handle_people(person_id):
         favorites_serialized = list(map(lambda x: x.serialize(), favorites))
 
         response_body = {
-            "message": "Success",
             f"{person['username']}'s favorites": favorites_serialized,
             f"deleted from {person['username']}": deleted_person.serialize()
         }

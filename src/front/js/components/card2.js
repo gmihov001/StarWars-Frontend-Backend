@@ -9,7 +9,7 @@ export const Card2 = props => {
 	const [isFav, setIsFav] = useState(null);
 
 	useEffect(() => {
-		var result = store.favorites.find(favorite => favorite.entity.name == props.entity.name);
+		var result = store.favorites.find(favorite => favorite.name == props.entity.name);
 		setIsFav(result);
 	});
 	// if (props.planet) {

@@ -39,7 +39,10 @@ export const Login = props => {
 					<button
 						type="button"
 						className="btn btn-secondary px-5 mx-3"
-						onClick={() => actions.setUser(username)}>
+						onClick={() => {
+							let result = actions.setUser(username);
+							result && props.history.push("/home");
+						}}>
 						LOG IN
 					</button>
 
@@ -53,5 +56,6 @@ export const Login = props => {
 };
 
 Login.propTypes = {
-	match: PropTypes.object
+	match: PropTypes.object,
+	history: PropTypes.object
 };

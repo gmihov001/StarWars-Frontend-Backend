@@ -1,12 +1,14 @@
 const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
+			api_address: "https://3001-violet-octopus-gfad7ujl.ws-us10.gitpod.io/api",
 			user: null,
 			favorites: []
 		},
 		actions: {
 			setUser: username => {
 				setStore({ user: username });
+				return true;
 			},
 			loadPeople: () => {
 				fetch("https://swapi.dev/api/people/")
@@ -35,7 +37,27 @@ const getState = ({ getStore, setStore }) => {
 					})
 					.catch(error => console.log(error));
 			},
-			// Without fetch/backend:
+
+			loadFavorites: () => {
+				fetch(getStore().api_address + "/" + getStore().user + "/favorites")
+					.then(response => {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(data => {
+						console.log("data", data);
+						setStore({ favorites: data.favorites });
+					})
+					.catch(error => console.log(error));
+			},
+
+			emptyFavorites: () => {
+				setStore({ favorites: [] });
+			},
+
+			// # Without fetch/backend:
 			// addToFavorites: entity => {
 			// 	console.log("Entity: ", entity);
 
@@ -45,38 +67,46 @@ const getState = ({ getStore, setStore }) => {
 			// 		setStore({ tempStore });
 			// 	}
 			// },
-			// With fetch/backend:
+
+			// # With fetch/backend:
 			addToFavorites: newFave => {
 				console.log("newFave", newFave);
-				let url =
-					newFave.entityType == "person"
-						? "https://3001-violet-octopus-gfad7ujl.ws-us11.gitpod.io/api/favorite/people/"
-						: "https://3001-violet-octopus-gfad7ujl.ws-us11.gitpod.io/api/favorite/planets/";
+				if (!getStore().favorites.includes(newFave)) {
+					let url =
+						newFave.entityType == "person"
+							? getStore().api_address + "/favorite/people/"
+							: getStore().api_address + "/favorite/planets/";
 
-				fetch(url + (newFave.index + 1), {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({
-						name: newFave.entity.name,
-						url: newFave.entity.url,
-						username: getStore().user
+					fetch(url + (newFave.index + 1), {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							name: newFave.entity.name,
+							url: newFave.entity.url,
+							username: getStore().user
+						})
 					})
-				})
-					.then()
-					.then()
-					.catch();
+						.then(response => {
+							return response.json();
+						})
+						.then(resp_body => {
+							setStore({ favorites: resp_body.favorites });
+						})
+						.catch();
+				}
 			},
-			deleteFromFavorites: elm => {
-				console.log(elm);
+			// # Delete favorite without backend/fetch
+			// deleteFromFavorites: elm => {
+			// 	console.log(elm);
 
-				var { favorites } = getStore();
-				let newFavorites = favorites.filter(f => f.entity.name != elm.entity.name);
-				console.log(newFavorites);
+			// 	var { favorites } = getStore();
+			// 	let newFavorites = favorites.filter(f => f.name != elm.entity.name);
+			// 	console.log(newFavorites);
 
-				setStore({
-					favorites: newFavorites
-				});
-			},
+			// 	setStore({
+			// 		favorites: newFavorites
+			// 	});
+			// },
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");

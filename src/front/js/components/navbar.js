@@ -62,7 +62,7 @@ export class Navbar extends React.Component {
 															pathname: `/details/${index + 1}`,
 															state: elm
 														}}>
-														{elm.entity.name}
+														{elm.name}
 													</Link>
 													&nbsp;&nbsp;
 													<i
