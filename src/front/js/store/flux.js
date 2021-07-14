@@ -57,7 +57,7 @@ const getState = ({ getStore, setStore }) => {
 				setStore({ favorites: [] });
 			},
 
-			// //Without fetch/backend:
+			// //Add favorite without fetch/backend:
 			// addToFavorites: entity => {
 			// 	console.log("Entity: ", entity);
 
@@ -68,7 +68,7 @@ const getState = ({ getStore, setStore }) => {
 			// 	}
 			// },
 
-			// //With fetch/backend:
+			// //Add favorite with fetch/backend:
 			addToFavorites: newFave => {
 				console.log("newFave", newFave);
 				if (!getStore().favorites.includes(newFave)) {
@@ -109,6 +109,32 @@ const getState = ({ getStore, setStore }) => {
 			// },
 			//
 			// //Delete favorite with backend/fetch
+			deleteFavorite: element => {
+				console.log("element", element);
+				// if (!getStore().favorites.includes(newFave)) {
+				// 	let url =
+				// 		newFave.entityType == "person"
+				// 			? getStore().api_address + "/favorite/people/"
+				// 			: getStore().api_address + "/favorite/planets/";
+
+				// 	fetch(url + (newFave.index + 1), {
+				// 		method: "POST",
+				// 		headers: { "Content-Type": "application/json" },
+				// 		body: JSON.stringify({
+				// 			name: newFave.entity.name,
+				// 			url: newFave.entity.url,
+				// 			username: getStore().user
+				// 		})
+				// 	})
+				// 		.then(response => {
+				// 			return response.json();
+				// 		})
+				// 		.then(resp_body => {
+				// 			setStore({ favorites: resp_body.favorites });
+				// 		})
+				// 		.catch(err => console.log(err));
+				// }
+			},
 			//
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
