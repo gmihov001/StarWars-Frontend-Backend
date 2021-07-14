@@ -57,7 +57,7 @@ const getState = ({ getStore, setStore }) => {
 				setStore({ favorites: [] });
 			},
 
-			// # Without fetch/backend:
+			// //Without fetch/backend:
 			// addToFavorites: entity => {
 			// 	console.log("Entity: ", entity);
 
@@ -68,7 +68,7 @@ const getState = ({ getStore, setStore }) => {
 			// 	}
 			// },
 
-			// # With fetch/backend:
+			// //With fetch/backend:
 			addToFavorites: newFave => {
 				console.log("newFave", newFave);
 				if (!getStore().favorites.includes(newFave)) {
@@ -95,7 +95,7 @@ const getState = ({ getStore, setStore }) => {
 						.catch(err => console.log(err));
 				}
 			},
-			// # Delete favorite without backend/fetch
+			// //Delete favorite without backend/fetch
 			// deleteFromFavorites: elm => {
 			// 	console.log(elm);
 
@@ -107,6 +107,8 @@ const getState = ({ getStore, setStore }) => {
 			// 		favorites: newFavorites
 			// 	});
 			// },
+			//
+			// //Delete favorite with backend/fetch
 			//
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
