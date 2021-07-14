@@ -2,7 +2,7 @@ const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
 			api_address: "https://3001-violet-octopus-gfad7ujl.ws-us10.gitpod.io/api",
-			user: null,
+			user: "Georgi",
 			favorites: []
 		},
 		actions: {
@@ -111,29 +111,25 @@ const getState = ({ getStore, setStore }) => {
 			// //Delete favorite with backend/fetch
 			deleteFavorite: element => {
 				console.log("element", element);
-				// if (!getStore().favorites.includes(newFave)) {
-				// 	let url =
-				// 		newFave.entityType == "person"
-				// 			? getStore().api_address + "/favorite/people/"
-				// 			: getStore().api_address + "/favorite/planets/";
+				let url =
+					element.entityType == "person"
+						? getStore().api_address + "/favorite/people/"
+						: getStore().api_address + "/favorite/planets/";
 
-				// 	fetch(url + (newFave.index + 1), {
-				// 		method: "POST",
-				// 		headers: { "Content-Type": "application/json" },
-				// 		body: JSON.stringify({
-				// 			name: newFave.entity.name,
-				// 			url: newFave.entity.url,
-				// 			username: getStore().user
-				// 		})
-				// 	})
-				// 		.then(response => {
-				// 			return response.json();
-				// 		})
-				// 		.then(resp_body => {
-				// 			setStore({ favorites: resp_body.favorites });
-				// 		})
-				// 		.catch(err => console.log(err));
-				// }
+				fetch(url + element.entity_id, {
+					method: "DELETE",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						username: getStore().user
+					})
+				})
+					.then(response => {
+						return response.json();
+					})
+					.then(resp_body => {
+						setStore({ favorites: resp_body.favorites });
+					})
+					.catch(err => console.log(err));
 			},
 			//
 			// Use getActions to call a function within a fuction

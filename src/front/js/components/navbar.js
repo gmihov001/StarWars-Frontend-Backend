@@ -67,7 +67,7 @@ export class Navbar extends React.Component {
 													&nbsp;&nbsp;
 													<i
 														className="fas fa-backspace"
-														onClick={() => actions.deleteFromFavorites(elm)}
+														onClick={() => actions.deleteFavorite(elm)}
 													/>
 												</li>
 										  ))
