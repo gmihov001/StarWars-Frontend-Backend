@@ -2,7 +2,7 @@ const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
 			api_address: "https://3001-violet-octopus-gfad7ujl.ws-us10.gitpod.io/api",
-			user: "Georgi",
+			user: "",
 			favorites: []
 		},
 		actions: {
