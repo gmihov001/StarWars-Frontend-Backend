@@ -17,6 +17,7 @@ class User(db.Model):
                     "id": self.id,
                     "username": self.username,
                     "email": self.email,
+                    "password": self.password,
                     "favorites": [favorite.serialize() for favorite in self.favorites],
             }    
 

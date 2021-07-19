@@ -12,23 +12,17 @@ import datetime
 
 api = Blueprint('api', __name__)
 
-
-app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
-jwt = JWTManager(api)
-
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
     response_body = {
         "message": "Hello! I'm a message that came from the backend"
     }
-
     return jsonify(response_body), 200
 
 @api.route('/users', methods=['POST', 'GET'])
 def handle_users():
     user = request.get_json()
-
     if request.method == 'POST':
         new_user = User(username=user['username'] , email=user['email'], password=user['password'])
         db.session.add(new_user)
