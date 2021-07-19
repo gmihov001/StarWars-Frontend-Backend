@@ -9,7 +9,22 @@ const getState = ({ getStore, setStore }) => {
 			setUser: username => {
 				setStore({ user: username });
 				return true;
-			},
+            },
+            login: (password, email) => {
+                fetch(getStore().api_address + '/login', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                })
+                .then()
+                .then()
+                .catch();
+            },
 			loadPeople: () => {
 				fetch("https://swapi.dev/api/people/")
 					.then(response => {
