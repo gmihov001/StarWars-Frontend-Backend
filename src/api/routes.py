@@ -52,7 +52,7 @@ def login():
     user = User.query.filter_by(email=email, password=password).first()
     
     if user is None:
-        raise APIException('Invalid email or password', status_code=401)
+        return jsonify("Invalid email or password"), 401
 
     expires = datetime.timedelta(days=7)
     access_token = create_access_token(identity=email, expires_delta=expires)
