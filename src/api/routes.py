@@ -46,12 +46,12 @@ def login():
     user = User.query.filter_by(username=username, password=password).first()
     
     if user is None:
-        return jsonify("Invalid username or password"), 401
+        return jsonify({"msg": "Invalid username or password"}), 401
 
     expires = datetime.timedelta(days=7)
     access_token = create_access_token(identity=username, expires_delta=expires)
 
-    return jsonify(access_token), 200    
+    return jsonify(access_token=access_token, expires=expires), 200    
 
 
 @api.route('/<username>/favorites', methods=['GET'])
