@@ -51,7 +51,7 @@ def login():
     expires = datetime.timedelta(days=7)
     access_token = create_access_token(identity=username, expires_delta=expires)
 
-    return jsonify(access_token=access_token, expires=expires), 200    
+    return jsonify({"access_token": access_token}), 200    
 
 
 @api.route('/<username>/favorites', methods=['GET'])
