@@ -4,9 +4,16 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint, json
 from api.models import db, User, Favorite
 from api.utils import generate_sitemap, APIException
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
 
 api = Blueprint('api', __name__)
 
+
+app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+jwt = JWTManager(api)
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
@@ -34,7 +41,18 @@ def handle_users():
         "users": users_serialized
     }
 
-    return jsonify(response_body), 200    
+    return jsonify(response_body), 200
+
+@api.route('/login', methods=['POST'])
+def login():
+    credentials = request.get_json()
+    email = credentials.get('email', None)
+    password = credentials.get('password', None)
+    user = User.query.filter_by(email=email, password=password).first()
+
+    if user is None:
+        raise APIException('Invalid email or password', status_code=401)
+
 
 @api.route('/<username>/favorites', methods=['GET'])
 def get_favorites(username):
