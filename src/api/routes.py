@@ -8,6 +8,7 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
+import datetime
 
 api = Blueprint('api', __name__)
 
@@ -49,9 +50,14 @@ def login():
     email = credentials.get('email', None)
     password = credentials.get('password', None)
     user = User.query.filter_by(email=email, password=password).first()
-
+    
     if user is None:
         raise APIException('Invalid email or password', status_code=401)
+
+    expires = datetime.timedelta(days=7)
+    access_token = create_access_token(identity=email, expires_delta=expires)
+
+    return jsonify(access_token), 200    
 
 
 @api.route('/<username>/favorites', methods=['GET'])
