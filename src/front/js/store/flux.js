@@ -21,9 +21,16 @@ const getState = ({ getStore, setStore }) => {
                         password: password
                     })
                 })
-                .then()
-                .then()
-                .catch();
+                .then(response => response.json())
+                .then(token => {
+                    if(typeof token.msg != "undefined"){
+                        throw new Error(token.msg);
+                    } else {
+                        setStore({ token: token.access_token });
+                    }
+
+                })
+                .catch(err => prompt(err));
             },
 			loadPeople: () => {
 				fetch("https://swapi.dev/api/people/")
