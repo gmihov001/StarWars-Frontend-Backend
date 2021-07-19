@@ -41,15 +41,15 @@ def handle_users():
 @api.route('/login', methods=['POST'])
 def login():
     credentials = request.get_json()
-    email = credentials.get('email', None)
+    username = credentials.get('username', None)
     password = credentials.get('password', None)
-    user = User.query.filter_by(email=email, password=password).first()
+    user = User.query.filter_by(username=username, password=password).first()
     
     if user is None:
-        return jsonify("Invalid email or password"), 401
+        return jsonify("Invalid username or password"), 401
 
     expires = datetime.timedelta(days=7)
-    access_token = create_access_token(identity=email, expires_delta=expires)
+    access_token = create_access_token(identity=username, expires_delta=expires)
 
     return jsonify(access_token), 200    
 
