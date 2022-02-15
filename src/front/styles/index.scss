@@ -1,5 +1,7 @@
 body {
     font-family: 'Arial Narrow', 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-image: url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986");
+    background-color:rgb(20, 25, 25);
 }
 
 .header {
@@ -26,9 +28,7 @@ body {
     float: right;
     margin-top: 2px;
 }
-body {
-    background:rgb(20, 25, 25);
-}
+
 h4 {
     color: lightgray;
     font-weight: 300;

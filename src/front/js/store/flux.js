@@ -1,7 +1,7 @@
 const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
-			api_address: "https://3001-violet-octopus-gfad7ujl.ws-us10.gitpod.io/api",
+			api_address: "https://3001-gmihov001-starwarsfronte-yv818zs2oze.ws-us31.gitpod.io/api/",
 			user: "",
 			favorites: []
 		},
@@ -9,29 +9,28 @@ const getState = ({ getStore, setStore }) => {
 			setUser: username => {
 				setStore({ user: username });
 				return true;
-            },
-            login: (password, email) => {
-                fetch(getStore().api_address + '/login', {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        username: username,
-                        password: password
-                    })
-                })
-                .then(response => response.json())
-                .then(token => {
-                    if(typeof token.msg != "undefined"){
-                        throw new Error(token.msg);
-                    } else {
-                        setStore({ token: token.access_token });
-                    }
-
-                })
-                .catch(err => prompt(err));
-            },
+			},
+			login: (password, email) => {
+				fetch(getStore().api_address + "/login", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({
+						username: username,
+						password: password
+					})
+				})
+					.then(response => response.json())
+					.then(token => {
+						if (typeof token.msg != "undefined") {
+							throw new Error(token.msg);
+						} else {
+							setStore({ token: token.access_token });
+						}
+					})
+					.catch(err => prompt(err));
+			},
 			loadPeople: () => {
 				fetch("https://swapi.dev/api/people/")
 					.then(response => {
